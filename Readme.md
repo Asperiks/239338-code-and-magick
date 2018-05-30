@@ -1,7 +1,7 @@
 # Учебный проект «Код и Магия» [![Build status][travis-image]][travis-url]
 
-* Студент: [Артем Картавцев](https://up.htmlacademy.ru/javascript/14/user/239338).
-* Наставник: `Неизвестно`.
+* Студент: [Артем Картавцев](https://htmlacademy.ru/profile/arkartavtsev).
+* Наставник: [Сергей Зверобоев](https://htmlacademy.ru/profile/zveroboev).
 
 ---
 
