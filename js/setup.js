@@ -45,21 +45,21 @@ var getRandomItem = function (arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 };
 
-var generateWizards = function () {
+var generateWizards = function (wizardsProps) {
   var wizards = [];
 
-  for (var i = 0; i < WizardsProps.QUANTITY; i++) {
-    wizards[i] = {
-      name: getRandomItem(WizardsProps.NAMES) + ' ' + getRandomItem(WizardsProps.SURNAMES),
-      coatColor: getRandomItem(WizardsProps.COAT_COLORS),
-      eyesColor: getRandomItem(WizardsProps.EYES_COLORS)
-    };
+  for (var i = 0; i < wizardsProps.QUANTITY; i++) {
+    wizards.push({
+      name: getRandomItem(wizardsProps.NAMES) + ' ' + getRandomItem(wizardsProps.SURNAMES),
+      coatColor: getRandomItem(wizardsProps.COAT_COLORS),
+      eyesColor: getRandomItem(wizardsProps.EYES_COLORS)
+    });
   }
 
   return wizards;
 };
 
-var renderWizard = function (template, wizard) {
+var createAnotherWizard = function (template, wizard) {
   var anotherWizard = template.cloneNode(true);
 
   anotherWizard.querySelector('.setup-similar-label').textContent = wizard.name;
@@ -70,19 +70,27 @@ var renderWizard = function (template, wizard) {
 };
 
 var getSimilarWizards = function (wizards) {
-  var similarWizards = document.querySelector('.setup-similar-list');
   var fragment = document.createDocumentFragment();
   var wizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
   for (var i = 0; i < wizards.length; i++) {
-    fragment.appendChild(renderWizard(wizardTemplate, wizards[i]));
+    fragment.appendChild(createAnotherWizard(wizardTemplate, wizards[i]));
   }
 
-  similarWizards.appendChild(fragment);
-  document.querySelector('.setup-similar').classList.remove('hidden');
+  return fragment;
 };
 
+var renderSetupWindow = function () {
+  var wizards = generateWizards(WizardsProps);
+  var similarWizards = getSimilarWizards(wizards);
 
-getSimilarWizards(generateWizards());
+  var setupWindow = document.querySelector('.setup');
+  var wizardsContainer = setupWindow.querySelector('.setup-similar');
+  var wizardsList = wizardsContainer.querySelector('.setup-similar-list');
 
-document.querySelector('.setup').classList.remove('hidden');
+  wizardsList.appendChild(similarWizards);
+  wizardsContainer.classList.remove('hidden');
+  setupWindow.classList.remove('hidden');
+};
+
+renderSetupWindow();
