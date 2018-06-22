@@ -1,6 +1,11 @@
 'use strict';
 
 
+var KeyCodes = {
+  ENTER: 13,
+  ESC: 27
+};
+
 var WizardsProps = {
   QUANTITY: 4,
   NAMES: [
@@ -37,8 +42,18 @@ var WizardsProps = {
     'blue',
     'yellow',
     'green'
+  ],
+  FIREBALL_COLORS: [
+    '#ee4830',
+    '#30a8ee',
+    '#5ce6c0',
+    '#e848d5',
+    '#e6e848'
   ]
 };
+
+
+// вывод похожих персонажей
 
 
 var getRandomItem = function (arr) {
@@ -80,17 +95,63 @@ var getSimilarWizards = function (wizards) {
   return fragment;
 };
 
-var renderSetupWindow = function () {
+
+// рендер похожих персонажей
+
+
+var renderSimilarWizards = function () {
   var wizards = generateWizards(WizardsProps);
   var similarWizards = getSimilarWizards(wizards);
 
-  var setupWindow = document.querySelector('.setup');
-  var wizardsContainer = setupWindow.querySelector('.setup-similar');
+  var wizardsContainer = document.querySelector('.setup-similar');
   var wizardsList = wizardsContainer.querySelector('.setup-similar-list');
 
   wizardsList.appendChild(similarWizards);
   wizardsContainer.classList.remove('hidden');
-  setupWindow.classList.remove('hidden');
 };
 
-renderSetupWindow();
+
+renderSimilarWizards();
+
+
+// открытие/закрытие окна настройки персонажа
+
+
+var setupWindow = document.querySelector('.setup');
+var wizardName = setupWindow.querySelector('.setup-user-name');
+
+var openBtn = document.querySelector('.setup-open');
+var closeBtn = setupWindow.querySelector('.setup-close');
+
+
+var openSetup = function () {
+  setupWindow.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+var closeSetup = function () {
+  setupWindow.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
+var onPopupEscPress = function (evt) {
+  if (evt.keyCode === KeyCodes.ESC && evt.target !== wizardName) {
+    closeSetup();
+  }
+};
+
+
+closeBtn.addEventListener('click', closeSetup);
+openBtn.addEventListener('click', openSetup);
+
+openBtn.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === KeyCodes.ENTER) {
+    openSetup();
+  }
+});
+
+closeBtn.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === KeyCodes.ENTER) {
+    closeSetup();
+  }
+});
