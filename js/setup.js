@@ -155,3 +155,39 @@ closeBtn.addEventListener('keydown', function (evt) {
     closeSetup();
   }
 });
+
+
+// настройка персонажа
+
+
+var wizard = document.querySelector('.setup-wizard-appearance');
+var wizardCoat = wizard.querySelector('.wizard-coat');
+var wizardCoatColor = wizard.querySelector('input[name="coat-color"]');
+var wizardEyes = wizard.querySelector('.wizard-eyes');
+var wizardEyesColor = wizard.querySelector('input[name="eyes-color"]');
+
+var fireball = document.querySelector('.setup-fireball-wrap');
+var fireballColor = fireball.querySelector('input[name="fireball-color"]');
+
+
+var getNextColor = function (colors, currentColor) {
+  var currentColorIndex = colors.indexOf(currentColor);
+
+  return currentColorIndex !== colors.length - 1 ? colors[currentColorIndex + 1] : colors[0];
+};
+
+
+wizardCoat.addEventListener('click', function () {
+  wizardCoatColor.value = getNextColor(WizardsProps.COAT_COLORS, wizardCoatColor.value);
+  wizardCoat.style.fill = wizardCoatColor.value;
+});
+
+wizardEyes.addEventListener('click', function () {
+  wizardEyesColor.value = getNextColor(WizardsProps.EYES_COLORS, wizardEyesColor.value);
+  wizardEyes.style.fill = wizardEyesColor.value;
+});
+
+fireball.addEventListener('click', function () {
+  fireballColor.value = getNextColor(WizardsProps.FIREBALL_COLORS, fireballColor.value);
+  fireball.style.background = fireballColor.value;
+});
