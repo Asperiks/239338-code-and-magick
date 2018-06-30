@@ -1,11 +1,6 @@
 'use strict';
 
 
-var KeyCodes = {
-  ENTER: 13,
-  ESC: 27
-};
-
 var WizardsProps = {
   QUANTITY: 4,
   NAMES: [
@@ -112,49 +107,6 @@ var renderSimilarWizards = function () {
 
 
 renderSimilarWizards();
-
-
-// открытие/закрытие окна настройки персонажа
-
-
-var setupWindow = document.querySelector('.setup');
-var wizardName = setupWindow.querySelector('.setup-user-name');
-
-var openBtn = document.querySelector('.setup-open');
-var closeBtn = setupWindow.querySelector('.setup-close');
-
-
-var openSetup = function () {
-  setupWindow.classList.remove('hidden');
-  document.addEventListener('keydown', onEscPress);
-};
-
-var closeSetup = function () {
-  setupWindow.classList.add('hidden');
-  document.removeEventListener('keydown', onEscPress);
-};
-
-var onEscPress = function (evt) {
-  if (evt.keyCode === KeyCodes.ESC && evt.target !== wizardName) {
-    closeSetup();
-  }
-};
-
-
-closeBtn.addEventListener('click', closeSetup);
-openBtn.addEventListener('click', openSetup);
-
-openBtn.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === KeyCodes.ENTER) {
-    openSetup();
-  }
-});
-
-closeBtn.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === KeyCodes.ENTER) {
-    closeSetup();
-  }
-});
 
 
 // настройка персонажа
