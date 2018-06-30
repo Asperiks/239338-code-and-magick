@@ -25,7 +25,7 @@ var openPopup = function () {
 var closePopup = function () {
   popup.classList.add('hidden');
   document.removeEventListener('keydown', onEscPress);
-  popup.removeAttribute('style');
+  popup.style = '';
 };
 
 var onEscPress = function (evt) {
@@ -53,6 +53,11 @@ popupCloseBtn.addEventListener('keydown', function (evt) {
 
 // перетаскивание окна
 
+
+var onClickPreventDefault = function (clickEvt) {
+  clickEvt.preventDefault();
+  popupHandler.removeEventListener('click', onClickPreventDefault);
+};
 
 var onMouseDown = function (downEvt) {
   var initialCoords = {
@@ -83,10 +88,6 @@ var onMouseDown = function (downEvt) {
 
   var onMouseUp = function () {
     if (isDragMove) {
-      var onClickPreventDefault = function (clickEvt) {
-        clickEvt.preventDefault();
-        popupHandler.removeEventListener('click', onClickPreventDefault);
-      };
       popupHandler.addEventListener('click', onClickPreventDefault);
     }
 
