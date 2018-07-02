@@ -1,30 +1,10 @@
 'use strict';
 
 
-window.util = (function () {
-  return {
+(function () {
+  window.util = {
     WizardsProps: {
       QUANTITY: 4,
-      NAMES: [
-        'Иван',
-        'Хуан Себастьян',
-        'Мария',
-        'Кристоф',
-        'Виктор',
-        'Юлия',
-        'Люпита',
-        'Вашингтон'
-      ],
-      SURNAMES: [
-        'да Марья',
-        'Верон',
-        'Мирабелла',
-        'Вальц',
-        'Онопко',
-        'Топольницкая',
-        'Нионго',
-        'Ирвинг'
-      ],
       COAT_COLORS: [
         'rgb(101, 137, 164)',
         'rgb(241, 43, 107)',
@@ -48,23 +28,43 @@ window.util = (function () {
         '#e6e848'
       ]
     },
+
     KeyCode: {
       ENTER: 13,
       ESC: 27
     },
+
     isEnterEvent: function (evt, action) {
       if (evt.keyCode === this.KeyCode.ENTER) {
         action();
       }
     },
+
     getMaxElement: function (arr) {
       return Math.max.apply(null, arr);
     },
+
     getRandomNum: function (min, max) {
       return Math.floor(Math.random() * (max - min)) + min;
     },
+
     getRandomItem: function (arr) {
       return arr[Math.floor(Math.random() * arr.length)];
+    },
+
+    onServerError: function (errorMessage) {
+      var errorContainer = document.createElement('div');
+
+      var onErrorHide = function () {
+        errorContainer.classList.add('hidden');
+      };
+
+      errorContainer.textContent = errorMessage;
+      errorContainer.classList.add('error');
+
+      document.body.appendChild(errorContainer);
+
+      setTimeout(onErrorHide, 5000);
     }
   };
 })();
