@@ -52,10 +52,10 @@
       return arr[Math.floor(Math.random() * arr.length)];
     },
 
-    onServerError: function (errorMessage) {
+    showError: function (errorMessage) {
       var errorContainer = document.createElement('div');
 
-      var onErrorHide = function () {
+      var hideError = function () {
         errorContainer.classList.add('hidden');
       };
 
@@ -64,7 +64,7 @@
 
       document.body.appendChild(errorContainer);
 
-      setTimeout(onErrorHide, 5000);
+      setTimeout(hideError, 5000);
     }
   };
 })();

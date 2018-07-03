@@ -4,12 +4,13 @@
 (function () {
   var popup = document.querySelector('.setup');
   var setupForm = popup.querySelector('.setup-wizard-form');
+  var setupFormBtn = setupForm.querySelector('.setup-submit');
+
   var wizard = setupForm.querySelector('.setup-wizard-appearance');
   var wizardCoat = wizard.querySelector('.wizard-coat');
   var wizardCoatColor = wizard.querySelector('input[name="coat-color"]');
   var wizardEyes = wizard.querySelector('.wizard-eyes');
   var wizardEyesColor = wizard.querySelector('input[name="eyes-color"]');
-
   var fireball = document.querySelector('.setup-fireball-wrap');
   var fireballColor = fireball.querySelector('input[name="fireball-color"]');
 
@@ -37,15 +38,22 @@
   };
 
 
-  var onSendFormSuccess = function () {
+  var onFormSendSuccess = function () {
     popup.classList.add('hidden');
+    setupFormBtn.disabled = false;
+  };
+
+  var onFormSendError = function (errorMessage) {
+    window.util.showError(errorMessage);
+    setupFormBtn.disabled = false;
   };
 
 
   setupForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
+    setupFormBtn.disabled = true;
 
-    window.backend.save(new FormData(setupForm), onSendFormSuccess, window.util.onServerError);
+    window.backend.save(new FormData(setupForm), onFormSendSuccess, onFormSendError);
   });
 
   wizardCoat.addEventListener('click', onCoatClick);

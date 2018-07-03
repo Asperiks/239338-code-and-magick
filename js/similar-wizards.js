@@ -30,5 +30,5 @@
   };
 
 
-  window.backend.load(onWizardsLoadSuccess, window.util.onServerError);
+  window.backend.load(onWizardsLoadSuccess, window.util.showError);
 })();
